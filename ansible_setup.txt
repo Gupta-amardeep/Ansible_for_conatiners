@@ -1,0 +1,22 @@
+# We already have container running with SSH connectivity.
+
+# Go into the master container
+docker exec -it master bash
+
+# We assume master container as Ubuntu base image
+sudo apt update
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+
+# Add host entry in /etc/ansible/hosts file
+vi /etc/ansible/hosts
+slave1
+slave2
+slave3
+
+# Check ansible working properly using adhoc commands
+ansible all -m ping
+
+# One can write playbook to do some configuration changes on slave containers
+ansible-playbook <my-playbook.yaml>
